@@ -48,14 +48,14 @@ int main( int argc, char **arg ){
    pagrindinis = getpid();
 
    switch( pid = fork() ){
-      case 0:                                         /* fork() grazina 0 vaiko procesui */
+      case 0:
          il_child();
          break;
-      default:                                        /* fork() grazina vaiko PID tevo procesui */
+      default:
          vaikas = pid;
          il_parent();
          break;
-      case -1:                                        /* fork() nepavyko */
+      case -1:
          perror("fork");
          exit(1);
    }

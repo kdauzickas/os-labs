@@ -38,20 +38,18 @@ void il_catch_ALRM(int snum) {
 	printf("Got signal: %d\n", snum);
 }
 
-
 int main(int argc, char **argv) {
+int pid;
 
-int pid;						/* proceso ID */
-
-signal(SIGCHLD, il_catch_CHLD);				/* aptikti vaiko proc pasibaigima ir apdoroti */
+signal(SIGCHLD, il_catch_CHLD);
 switch (pid = fork()) {
-	case 0:						/* fork() grazina 0 vaiko procesui */
+	case 0:
 		il_child(pid);
 		break;
-	default:					/* fork() grazina vaiko PID tevo procesui */
+	default:
 		il_parent(pid);
 		break;
-	case -1:					/* fork() nepavyko */
+	case -1:
 		perror("fork");
 		exit(1);
 	}

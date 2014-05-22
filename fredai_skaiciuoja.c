@@ -1,8 +1,3 @@
-/*
- * CS170:
- * print4.c -- forks off THREADS threads that print their ids
- */
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <pthread.h>
