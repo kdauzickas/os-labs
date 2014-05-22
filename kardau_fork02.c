@@ -3,9 +3,11 @@
 #include <unistd.h>
 
 int main( int argc, char * argv[] ){
+	pid_t f1;
+
 	printf("Pagrindinis: %ld\n", (long) getpid());
 
-	pid_t f1 = fork();
+	f1 = fork();
 
 	if (f1 == 0) {
 		sleep(2);

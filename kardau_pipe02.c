@@ -5,9 +5,11 @@
 #include <stdlib.h>
 
 int main (int argc, char * argv[]){
-   int      fd[2];
+   int      fd[2], status;
    pid_t    pid, x;
-   int      status;
+   long input_file_size;
+   FILE *input_file;
+   char *file_contents;
 
    if (argc != 2) {
       puts("Reikia failo pavadinimo");
@@ -19,14 +21,12 @@ int main (int argc, char * argv[]){
       exit( 1 );
    }
 
-   long input_file_size;
-   FILE *input_file = fopen(argv[1], "rb");
+   input_file = fopen(argv[1], "rb");
    fseek(input_file, 0, SEEK_END);
    input_file_size = ftell(input_file);
 
    pid = fork();
    if( pid != 0 && pid != -1 ){
-      char *file_contents;
       rewind(input_file);
       file_contents = malloc(input_file_size * (sizeof(char)));
       fread(file_contents, sizeof(char), input_file_size, input_file);
@@ -41,7 +41,6 @@ int main (int argc, char * argv[]){
       return 0;
    }
    else if (pid == 0) {
-      char *file_contents;
       file_contents = malloc(input_file_size * (sizeof(char)));
       read( fd[0], file_contents, sizeof( file_contents ) );
 

@@ -4,12 +4,14 @@
 #include <stdlib.h>
 
 int main(int argc, char * argv[]) {
+	int param;
+	
 	if (argc != 2) {
 		puts("Priimamas 1 argumentas");
 	 	return 1;
 	}
 
-	int param = atoi(argv[1]);
+	param = atoi(argv[1]);
 
 	printf("Mano pid: %ld\n", (long) getpid());
 	printf("Tevo pid: %ld\n\n", (long) getppid());
