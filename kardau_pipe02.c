@@ -32,7 +32,7 @@ int main (int argc, char * argv[]){
       fread(file_contents, sizeof(char), input_file_size, input_file);
       fclose(input_file);
 
-      if( write( fd[1], file_contents, sizeof( file_contents ) ) != sizeof( file_contents ) ){
+      if( write( fd[1], file_contents, input_file_size * (sizeof(char)) ) != input_file_size * (sizeof(char)) ){
          fprintf( stderr, "Klaida rasant" );
          exit( 2 );
       }
@@ -41,13 +41,15 @@ int main (int argc, char * argv[]){
       return 0;
    }
    else if (pid == 0) {
+      sleep(1);
       file_contents = malloc(input_file_size * (sizeof(char)));
-      read( fd[0], file_contents, sizeof( file_contents ) );
+      // printf("Dydis: %ld\n", sizeof(&file_contents) );
+      read( fd[0], file_contents, input_file_size * (sizeof(char)) );
 
-      puts(file_contents);
+      printf("%s", file_contents);
       return 0;
    }
-   else if( pid == -1 ){ 
+   else if( pid == -1 ){
       fprintf ( stderr, "Nepavyko sukurti vaiko !\n" );
       exit( 4 );
    }
